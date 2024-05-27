@@ -1,7 +1,7 @@
-./.sqlDB/*
-./luxtag_be/dist
-./luxtag_be/node_modules
-./luxtag_be/.env
-./luxtag_ui/node_modules
-./luxtag_ui/build
-./luxtag_be/.env
+.sqlDB/*
+luxtag_be/dist
+luxtag_be/node_modules
+luxtag_be/.env
+luxtag_ui/node_modules
+luxtag_ui/build
+luxtag_be/.env
