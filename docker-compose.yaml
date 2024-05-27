@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  sqlDB:
+    image: mariadb:10.5.8
+    restart: always
+    environment:
+      MYSQL_DATABASE: "luxtag"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "secret"
+      MYSQL_ROOT_PASSWORD: "secret"
+    ports:
+      - "3376:3306"
+    expose:
+      - "3376"
+    volumes:
+      - ./.sqlDB:/var/lib/mysql
+    networks:
+      - luxtag_network
+  luxtag_be:
+    build:
+      context: ./luxtag_be
+      dockerfile: Dockerfile
+    image: luxtag_be
+    container_name: luxtag_be
+    restart: unless-stopped
+    env_file: ./luxtag_be/.env
+    ports:
+      - "3500:3500"
+    volumes:
+      - ./luxtag_be/src:/usr/src/app/src
+    command: npm run start:dev
+    networks:
+      - luxtag_network
+
+  luxtag_fe:
+    build:
+      context: ./luxtag_ui
+      dockerfile: Dockerfile
+    image: luxtag_ui
+    container_name: luxtag_ui
+    restart: unless-stopped
+    env_file: ./luxtag_ui/.env
+    ports:
+      - "3000:80"
+    networks:
+      - luxtag_network
+
+networks:
+  luxtag_network:
+    driver: bridge
