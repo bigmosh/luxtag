@@ -58,8 +58,8 @@ export class StudentsService {
 
         // create each student record
         const student = new Student();
-        student.student_name = data[0];
-        student.program_name = data[1];
+        student.student_name = data[0] || 'N/A';
+        student.program_name = data[1] || 'N/A';
         student.serial_number = data[2];
         const studentExist = await this.isStudentAlreadyExist(
           student.serial_number,

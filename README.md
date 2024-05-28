@@ -13,4 +13,5 @@ cp .env.example .env
 
 Run the App
 docker-compose up
+open http://localhost:3000
 

@@ -22,13 +22,15 @@ services:
       dockerfile: Dockerfile
     image: luxtag_be
     container_name: luxtag_be
-    restart: unless-stopped
+    restart: on-failure
     env_file: ./luxtag_be/.env
     ports:
       - "3500:3500"
     volumes:
       - ./luxtag_be/src:/usr/src/app/src
     command: npm run start:dev
+    depends_on:
+      - sqlDB
     networks:
       - luxtag_network
 
@@ -40,6 +42,8 @@ services:
     container_name: luxtag_ui
     restart: unless-stopped
     env_file: ./luxtag_ui/.env
+    depends_on:
+      - luxtag_be
     ports:
       - "3000:80"
     networks:
